@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import { Modal, Button, Group } from '@mantine/core';
 
+import {useSelector} from "react-redux";
+
 function ModalPopup() {
+
+    const modalState = useSelector((state) => state.open );
+    console.log(modalState);
     return(
         <>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab cumque deserunt eligendi error, explicabo fugiat ipsum maxime molestiae, nisi odio odit possimus provident, quos ratione voluptas? Architecto quidem ullam voluptatibus.
