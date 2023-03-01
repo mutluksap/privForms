@@ -2,20 +2,20 @@ import {Link} from "react-router-dom";
 import {config} from "../Config";
 import {getAuth, signOut } from "@firebase/auth";
 import {useDispatch, useSelector} from "react-redux";
-import {openModal} from "../redux/reducers/Modal";
+import {openModal} from "../redux/slices/Modal";
 
 function Dashboard({user}){
     const auth = getAuth(config);
 
     const dispatch = useDispatch();
-    const modalState = useSelector((state) => state.open );
 
     const logout = () => {
         signOut(auth);
     }
-    const modal = (modalState) => {
+    const modalState = useSelector((state) => state.open );
+    const modal = (state) => {
         console.log(modalState)
-        dispatch(openModal(!modalState));
+        dispatch(openModal(!state));
     }
 
     return(
@@ -32,7 +32,7 @@ function Dashboard({user}){
                         <div className="font-bold mr-2">
                             Hi, {user.displayName}
                         </div>
-                        <button onClick={() => modal()} className="bg-emerald-600 p-2 rounded font-bold text-white mr-2">
+                        <button onClick={() => modal(!modalState)} className="bg-emerald-600 p-2 rounded font-bold text-white mr-2">
                             Create User
                         </button>
                         <button onClick={logout} className="bg-red-800 p-2 rounded font-bold text-white">

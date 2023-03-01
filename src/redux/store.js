@@ -1,9 +1,9 @@
 import {configureStore} from "@reduxjs/toolkit";
 
-import reducers from "./reducers";
+import Modal from "./slices/Modal";
 
-const initialState = {
-    modal: false
-}
-
-export default configureStore({ reducer: reducers, preloadedState: initialState});
+export default configureStore({
+    reducer: {
+        modal: Modal.reducer
+    }
+});
