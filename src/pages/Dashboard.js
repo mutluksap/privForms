@@ -1,8 +1,9 @@
 import {Link} from "react-router-dom";
 import {config} from "../Config";
 import {getAuth, signOut } from "@firebase/auth";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {openModal} from "../redux/slices/Modal";
+import Modal from "../components/Modal";
 
 function Dashboard({user}){
     const auth = getAuth(config);
@@ -12,10 +13,8 @@ function Dashboard({user}){
     const logout = () => {
         signOut(auth);
     }
-    const modalState = useSelector((state) => state.open );
-    const modal = (state) => {
-        console.log(modalState)
-        dispatch(openModal(!state));
+    const modal = () => {
+        dispatch(openModal());
     }
 
     return(
@@ -32,7 +31,7 @@ function Dashboard({user}){
                         <div className="font-bold mr-2">
                             Hi, {user.displayName}
                         </div>
-                        <button onClick={() => modal(!modalState)} className="bg-emerald-600 p-2 rounded font-bold text-white mr-2">
+                        <button onClick={() => modal()} className="bg-emerald-600 p-2 rounded font-bold text-white mr-2">
                             Create User
                         </button>
                         <button onClick={logout} className="bg-red-800 p-2 rounded font-bold text-white">
@@ -44,6 +43,8 @@ function Dashboard({user}){
             <div className="container mx-auto py-3.5 flex justify-center w-3/5">
 
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+
+                    <Modal/>
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead
                             className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
